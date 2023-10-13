@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ck.mybatis.demo.mapper.C_TableMapper">
+    <resultMap id="BaseResultMap" type="com.ck.mybatis.demo.entity.C_Table">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="seq_no" jdbcType="INTEGER" property="seqNo" />
+        <result column="B" jdbcType="VARCHAR" property="B" />
+        <result column="aaS" jdbcType="VARCHAR" property="aas" />
+        <result column="bbS" jdbcType="VARCHAR" property="bbs" />
+        <result column="ccS" jdbcType="VARCHAR" property="ccs" />
+        <result column="aaA" jdbcType="VARCHAR" property="aaa" />
+        <result column="bbA" jdbcType="VARCHAR" property="bba" />
+        <result column="ccA" jdbcType="VARCHAR" property="cca" />
+        <result column="aaSS" jdbcType="VARCHAR" property="aass" />
+        <result column="aaC" jdbcType="VARCHAR" property="aac" />
+        <result column="ddS" jdbcType="VARCHAR" property="dds" />
+    </resultMap>
+    <insert id="insert" parameterType="com.ck.mybatis.demo.entity.C_Table">
+        INSERT INTO c_table
+        (id, seq_no, B, aaS, bbS, ccS, aaA, bbA, ccA, aaSS, aaC, ddS)
+        VALUES
+            (#{id,jdbcType=BIGINT}, #{seqNo,jdbcType=INTEGER}, #{B,jdbcType=VARCHAR},
+             #{aas,jdbcType=VARCHAR}, #{bbs,jdbcType=VARCHAR}, #{ccs,jdbcType=VARCHAR},
+             #{aaa,jdbcType=VARCHAR}, #{bba,jdbcType=VARCHAR}, #{cca,jdbcType=VARCHAR},
+             #{aass,jdbcType=VARCHAR}, #{aac,jdbcType=VARCHAR}, #{dds,jdbcType=VARCHAR}
+            )
+    </insert>
+    <update id="update" parameterType="com.ck.mybatis.demo.entity.C_Table">
+        UPDATE c_table
+        <set>
+            <if test="seqNo != null">seq_no = #{seqNo,jdbcType=INTEGER},</if>
+            <if test="B != null">B = #{B,jdbcType=VARCHAR},</if>
+            <if test="aas != null">aaS = #{aas,jdbcType=VARCHAR},</if>
+            <if test="bbs != null">bbS = #{bbs,jdbcType=VARCHAR},</if>
+            <if test="ccs != null">ccS = #{ccs,jdbcType=VARCHAR},</if>
+            <if test="aaa != null">aaA = #{aaa,jdbcType=VARCHAR},</if>
+            <if test="bba != null">bbA = #{bba,jdbcType=VARCHAR},</if>
+            <if test="cca != null">ccA = #{cca,jdbcType=VARCHAR},</if>
+            <if test="aass != null">aaSS = #{aass,jdbcType=VARCHAR},</if>
+            <if test="aac != null">aaC = #{aac,jdbcType=VARCHAR},</if>
+            <if test="dds != null">ddS = #{dds,jdbcType=VARCHAR},</if>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="find" parameterType="string" resultMap="BaseResultMap">
+        SELECT * FROM c_table WHERE B LIKE CONCAT('%', #{value}, '%')
+    </select>
+    <select id="getAll" resultType="com.ck.mybatis.demo.entity.C_Table">
+        SELECT * FROM c_table
+    </select>
+    <delete id="deleteAll">
+        DELETE FROM c_table
+    </delete>
+
+</mapper>

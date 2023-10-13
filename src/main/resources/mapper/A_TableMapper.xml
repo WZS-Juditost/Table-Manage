@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ck.mybatis.demo.mapper.A_TableMapper">
+    <resultMap id="BaseResultMap" type="com.ck.mybatis.demo.entity.A_Table">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="seq_no" jdbcType="INTEGER" property="seqNo" />
+        <result column="A" jdbcType="VARCHAR" property="A" />
+        <result column="B" jdbcType="VARCHAR" property="B" />
+        <result column="C" jdbcType="VARCHAR" property="C" />
+        <result column="D" jdbcType="VARCHAR" property="D" />
+        <result column="E" jdbcType="VARCHAR" property="E" />
+        <result column="F" jdbcType="VARCHAR" property="F" />
+        <result column="aa" jdbcType="BIT" property="aa" />
+        <result column="bb" jdbcType="BIT" property="bb" />
+        <result column="cc" jdbcType="BIT" property="cc" />
+        <result column="dd" jdbcType="BIT" property="dd" />
+        <result column="ee" jdbcType="BIT" property="ee" />
+    </resultMap>
+    <insert id="insert" parameterType="com.ck.mybatis.demo.entity.A_Table">
+        INSERT INTO a_table
+            (id, seq_no, A, B, C, D, E, F, aa, bb, cc, dd, ee)
+        VALUES
+            (#{id,jdbcType=BIGINT}, #{seqNo,jdbcType=INTEGER}, #{A,jdbcType=VARCHAR},
+             #{B,jdbcType=VARCHAR}, #{C,jdbcType=VARCHAR}, #{D,jdbcType=VARCHAR},
+             #{E,jdbcType=VARCHAR}, #{F,jdbcType=VARCHAR}, #{aa,jdbcType=BIT},
+             #{bb,jdbcType=BIT}, #{cc,jdbcType=BIT}, #{dd,jdbcType=BIT}, #{ee,jdbcType=BIT})
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM a_table
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <update id="update" parameterType="com.ck.mybatis.demo.entity.A_Table">
+        UPDATE a_table
+        <set>
+            <if test="seqNo != null">seq_no = #{seqNo,jdbcType=INTEGER},</if>
+            <if test="A != null">A = #{A,jdbcType=VARCHAR},</if>
+            <if test="B != null">B = #{B,jdbcType=VARCHAR},</if>
+            <if test="C != null">C = #{C,jdbcType=VARCHAR},</if>
+            <if test="D != null">D = #{D,jdbcType=VARCHAR},</if>
+            <if test="E != null">E = #{E,jdbcType=VARCHAR},</if>
+            <if test="F != null">F = #{F,jdbcType=VARCHAR},</if>
+            <if test="aa != null">aa = #{aa,jdbcType=BIT},</if>
+            <if test="bb != null">bb = #{bb,jdbcType=BIT},</if>
+            <if test="cc != null">cc = #{cc,jdbcType=BIT},</if>
+            <if test="dd != null">dd = #{dd,jdbcType=BIT},</if>
+            <if test="ee != null">ee = #{ee,jdbcType=BIT},</if>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="find" parameterType="string" resultMap="BaseResultMap">
+        SELECT * FROM a_table WHERE A LIKE CONCAT('%', #{value}, '%')
+    </select>
+    <select id="findCountByColumnName" parameterType="map" resultType="int">
+        SELECT COUNT(*) FROM a_table
+        WHERE ${columnName} = 1 AND B LIKE CONCAT('%', #{value}, '%')
+    </select>
+    <select id="findDistinctB" resultType="java.lang.String">
+        SELECT DISTINCT B FROM a_table
+    </select>
+</mapper>
